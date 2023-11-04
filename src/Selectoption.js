@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Axios from 'axios';
 import { AgGridReact } from 'ag-grid-react';
 import { useRef } from 'react';
+// import Timedata from './Timedata';
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
@@ -133,8 +134,12 @@ const Selectoption = () => {
     const sub_Ref = useRef();
     let code = "";
 
+   
+    
+
     const handlefaculty = ()=> {
         const {api} = sub_Ref.current;
+       
         // console.log(api.getSelectedRows())
         const d = api.getSelectedRows()
         const s = d.values();
@@ -215,6 +220,8 @@ const Selectoption = () => {
 
     }
     const [filtersubfac,setFiltersubfac] = useState([])
+    
+    
     const subfac_Ref = useRef();
 
     // const API_SUBFAC = "http://localhost:3500/subfac";
@@ -224,6 +231,7 @@ const Selectoption = () => {
         let rowData = [];
         subfac_Ref.current.api.forEachNode(node => rowData.push(node.data));
         setFiltersubfac(rowData)
+        // console.log(filtersubfac)
 
         // const postoptions = {
         //     method: 'POST',
@@ -248,55 +256,108 @@ const Selectoption = () => {
       }
 
       const TimetablecolumnDefs = [
-        {field: 'Days',maxWidth:100},
-        {field: '8:30-9:20',cellRenderer: Timedata},
-        {field: '9:30-10-20',cellRenderer: Timedata},
-        {field: '10:30-11:20',cellRenderer: Timedata},
-        {field: '11:30-12:10',cellRenderer: Timedata},
-        {field: '1:10-2:00',cellRenderer: Timedata},
-        {field: '2:00-2:50',cellRenderer: Timedata},
-        {field: '3:00-3:50',cellRenderer: Timedata},
-        {field: '3:50-4:30',cellRenderer: Timedata},
+        { headerName: 'Days', field: 'Days',maxWidth:100,cellRenderer : null},
+        { headerName: 'period_1', field: '8:30-9:20'},
+        { headerName: 'period_2', field: '9:30-10-20'},
+        { headerName: 'period_3', field: '10:30-11:20'},
+        { headerName: 'period_4', field: '11:30-12:10'},
+        { headerName: 'period_5', field: '1:10-2:00'},
+        { headerName: 'period_6', field: '2:00-2:50'},
+        { headerName: 'period_7', field: '3:00-3:50'},
+        { headerName: 'period_8', field: '3:50-4:30'},
     
       ];
 
+    //   const frameworkComponents = {
+    //     Timedata: Timedata,
+    //   };
+
       const TimetablerowData = [
-        {Days: 'Monday', '8:30-9:20': 'SE', '9:30-10-20': "SE",'10:30-11:20':"SELAB",'11:30-12:10':"SELAB",'1:10-2:00':"DWM",'2:00-2:50':"OSS",'3:00-3:50':"NILL",'3:50-4:30':"NILL"},
-        {Days: 'Tuesday', '8:30-9:20': 'DWMLAB', '9:30-10-20': "DWMLAB",'10:30-11:20':"SELAB",'11:30-12:10':"SELAB",'1:10-2:00':"DAA",'2:00-2:50':"DAA",'3:00-3:50':"SPM",'3:50-4:30':"NILL"},
-        {Days: 'Wednesday', '8:30-9:20': 'NILL', '9:30-10-20': "NILL",'10:30-11:20':"DWM",'11:30-12:10':"DWM",'1:10-2:00':"ADBMS",'2:00-2:50':"ADBMS",'3:00-3:50':"NILL",'3:50-4:30':"NILL"},
-        {Days: 'Thursday', '8:30-9:20': 'NILL', '9:30-10-20': "SPM",'10:30-11:20':"ADBMS",'11:30-12:10':"ADBMS",'1:10-2:00':"OSS",'2:00-2:50':"SPM",'3:00-3:50':"SPM",'3:50-4:30':"NILL"},
-        {Days: 'Friday', '8:30-9:20': 'NILL', '9:30-10-20': "SE",'10:30-11:20':"DAA",'11:30-12:10':"DAA",'1:10-2:00':"OSS",'2:00-2:50':"NILL",'3:00-3:50':"NILL",'3:50-4:30':"NILL"}
+        {Days: 'Monday'},
+        {Days: 'Tuesday'},
+        {Days: 'Wednesday'},
+        {Days: 'Thursday'},
+        {Days: 'Friday'}
       ];
+
+      // const TimetablerowData = [
+      //   {Days: 'Monday', '8:30-9:20': 'SE', '9:30-10-20': "SE",'10:30-11:20':"SELAB",'11:30-12:10':"SELAB",'1:10-2:00':"DWM",'2:00-2:50':"OSS",'3:00-3:50':"NILL",'3:50-4:30':"NILL"},
+      //   {Days: 'Tuesday', '8:30-9:20': 'DWMLAB', '9:30-10-20': "DWMLAB",'10:30-11:20':"SELAB",'11:30-12:10':"SELAB",'1:10-2:00':"DAA",'2:00-2:50':"DAA",'3:00-3:50':"SPM",'3:50-4:30':"NILL"},
+      //   {Days: 'Wednesday', '8:30-9:20': 'NILL', '9:30-10-20': "NILL",'10:30-11:20':"DWM",'11:30-12:10':"DWM",'1:10-2:00':"ADBMS",'2:00-2:50':"ADBMS",'3:00-3:50':"NILL",'3:50-4:30':"NILL"},
+      //   {Days: 'Thursday', '8:30-9:20': 'NILL', '9:30-10-20': "SPM",'10:30-11:20':"ADBMS",'11:30-12:10':"ADBMS",'1:10-2:00':"OSS",'2:00-2:50':"SPM",'3:00-3:50':"SPM",'3:50-4:30':"NILL"},
+      //   {Days: 'Friday', '8:30-9:20': 'NILL', '9:30-10-20': "SE",'10:30-11:20':"DAA",'11:30-12:10':"DAA",'1:10-2:00':"OSS",'2:00-2:50':"NILL",'3:00-3:50':"NILL",'3:50-4:30':"NILL"}
+      // ];
     
       const TimetabledefaultColDef = {
         sortable:true,
         filter:true,
-        flex : 1
+        flex : 1,
+        cellRenderer: Timedata
+        // cellRendererParams:{ filtersubfac , setFiltersubfac ,subfac}
       }
 
-    // const enableFillHandle = true 
-    
-    
-    function Timedata() {
-        const [isSelectOptionOpen, setIsSelectOptionOpen] = useState(true);
-        let val ='';
+      let Row_Index = 0 ;
+      let Column_Name = '';
+      let Row_Name = '';
 
+
+      const onCellClicked = (params) => {
+
+        Row_Index = params.node.rowIndex
+        Column_Name = params.colDef.headerName
+
+        Row_Name = params.data
+
+        // console.log('Clicked on cell:', params);
+        // // Access cell position details from the 'params' object
+        // console.log('Row Index:', params.node.rowIndex);
+        // console.log('Column Name:', params.colDef.headerName);
+        // console.log('Value:', params.value);
+      };
+      
+
+    const [facname,setFacname] = useState('')
+    function Timedata(props) {    
+        const [isSelectOptionOpen, setIsSelectOptionOpen] = useState(true);
+        const [val,setVal] = useState('')
+
+        
         const handleFit = (e) => {
           const selectedValue = e.target.value;
-          val = selectedValue
+          setVal(selectedValue)
         
-          const updatedOptions = filtersubfac.map((option) => { 
-            if (option.sub_title === selectedValue) {
-              console.log(selectedValue)
-              const newCount = option.tcp - 1;
-              return { ...option, tcp: newCount, disabled: newCount === 0 };
-            }
-            return option;
-          });
-        
-          setFiltersubfac(updatedOptions);
-      
+        //   const updatedOptions = filtersubfac.map((option) => { 
+        //     if (option.sub_title === selectedValue) {
+        //       console.log(selectedValue)
+        //       const newCount = option.tcp - 1;
+        //       return { ...option, tcp: newCount, disabled: newCount === 0 };
+        //     }
+        //     return option;
+        //   });
+        //   console.log(updatedOptions)
+
+          
           setIsSelectOptionOpen(false);
+          console.log(isSelectOptionOpen)
+        
+        //   setFiltersubfac(updatedOptions);
+
+          const fac = subfac.filter((d)=> ( 
+            d.sub_title === selectedValue
+          ))
+    
+          fac.map((d)=> setFacname(d.fac_name))
+    
+          console.log(facname)
+
+          const data = {
+            row : Row_Index,
+            col_name : Column_Name,
+            row_name : Row_Name,
+            value : selectedValue
+          }
+
+          console.log(data)
           
         };
         
@@ -322,7 +383,7 @@ const Selectoption = () => {
             {!isSelectOptionOpen &&
             (
               <div>
-                <p style={{ position: 'relative', top: '20px' }}>{val}</p>
+                <p style={{ position: 'relative', top: '20px', left: "30px"}}>{val}</p>
                 <button
                   style={{ position: 'relative', left: '40px' }}
                   onClick={handleRetrieve}
@@ -335,6 +396,12 @@ const Selectoption = () => {
         );
 
   }
+
+  // Faculty--Timetable
+
+
+
+
     
 
   return (
@@ -435,15 +502,44 @@ const Selectoption = () => {
                 columnDefs={TimetablecolumnDefs}
                 rowData={TimetablerowData}
                 defaultColDef={TimetabledefaultColDef}
+                // frameworkComponents={frameworkComponents}
                 // rowSelection='single'
                 // enableFillHandle={enableFillHandle}
                 rowHeight = '150'
+                onCellClicked={onCellClicked}
                 // onGridReady={onGridReady}
             >
 
             </AgGridReact>
             {/* <button className='btn' onClick={getRowData}>store details</button> */}
         </div>
+        
+
+        {facname && 
+          <>
+              <h3>{facname} Timetable</h3>
+              <div className="ag-theme-alpine" style={{height: '500px'}} >
+                <AgGridReact
+                    // ref={subfac_Ref}
+                    columnDefs={TimetablecolumnDefs}
+                    rowData={TimetablerowData}
+                    defaultColDef={defaultColDef}
+                    // frameworkComponents={frameworkComponents}
+                    // rowSelection='single'
+                    // enableFillHandle={enableFillHandle}
+                    rowHeight = '150'
+                    // onCellClicked={onCellClicked}
+                    // onGridReady={onGridReady}
+                >
+    
+                </AgGridReact>
+              {/* <button className='btn' onClick={getRowData}>store details</button> */}
+            </div>
+          </>
+          
+        }
+
+        
 
     </div>
   )
